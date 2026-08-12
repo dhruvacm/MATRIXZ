@@ -1,0 +1,1214 @@
+@import url('https://fonts.googleapis.com/css2?family=Oxanium:wght@400;500;600;700;800&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =========================================================
+   MATRIXZ DESIGN TOKENS
+   ========================================================= */
+
+:root {
+  --font-body: "Manrope", ui-sans-serif, sans-serif;
+  --font-display: "Barlow Condensed", ui-sans-serif, sans-serif;
+  --font-mono: "DM Mono", ui-monospace, monospace;
+  --font-premium: "Cinzel", serif;
+
+  --color-void: #050610;
+  --color-void-soft: #080a18;
+  --color-void-raised: #0d1023;
+  --color-violet-deep: #3c197e;
+  --color-violet-glow: #9b6cff;
+  --color-electric: #297cf4;
+  --color-electric-bright: #6da7ff;
+}
+/* =========================================================
+   BASE
+   ========================================================= */
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    background: #050610;
+  }
+
+  body {
+    @apply bg-slate-950 text-slate-100 antialiased;
+
+    font-family: var(--font-body);
+    background-color: #050610;
+
+    /*
+      Stronger atmospheric glow while keeping
+      the overall premium dark appearance.
+    */
+    background-image:
+      radial-gradient(
+        ellipse 75% 60% at 72% 0%,
+        rgba(91, 45, 190, 0.32),
+        transparent 68%
+      ),
+      radial-gradient(
+        ellipse 50% 55% at 0% 30%,
+        rgba(30, 90, 210, 0.16),
+        transparent 72%
+      ),
+      linear-gradient(
+        180deg,
+        #070817 0%,
+        #050610 55%,
+        #04050d 100%
+      );
+
+    background-attachment: fixed;
+    min-height: 100vh;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    letter-spacing: 0.02em;
+  }
+
+  ::selection {
+    background: rgba(139, 92, 246, 0.45);
+    color: white;
+  }
+
+  :focus-visible {
+    outline: 2px solid #a78bfa;
+    outline-offset: 2px;
+  }
+}
+
+/* =========================================================
+   COMPONENTS
+   ========================================================= */
+
+@layer components {
+  /* ---------------------------------------------
+     Glass panels
+     --------------------------------------------- */
+
+  .glass-panel {
+    @apply relative rounded-xl backdrop-blur-xl;
+
+    border: 1px solid rgba(167, 139, 250, 0.18);
+
+    background:
+      linear-gradient(
+        145deg,
+        rgba(25, 27, 55, 0.78),
+        rgba(11, 13, 29, 0.72)
+      );
+
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.055),
+      0 14px 50px rgba(0, 0, 0, 0.24),
+      0 0 30px rgba(91, 45, 190, 0.05);
+  }
+
+  .glass-card {
+    @apply relative rounded-xl backdrop-blur-xl transition-all duration-300;
+
+    border: 1px solid rgba(167, 139, 250, 0.17);
+
+    background:
+      linear-gradient(
+        145deg,
+        rgba(23, 25, 52, 0.82),
+        rgba(10, 12, 28, 0.76)
+      );
+
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.04),
+      0 14px 45px rgba(0, 0, 0, 0.20);
+  }
+
+  .glass-card:hover {
+    transform: translateY(-4px);
+
+    border-color: rgba(167, 139, 250, 0.48);
+
+    background:
+      linear-gradient(
+        145deg,
+        rgba(31, 31, 68, 0.88),
+        rgba(12, 14, 32, 0.82)
+      );
+
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.06),
+      0 18px 55px rgba(0, 0, 0, 0.28),
+      0 0 28px rgba(139, 92, 246, 0.14);
+  }
+
+  /* ---------------------------------------------
+     Grid background
+     --------------------------------------------- */
+
+  .grid-bg {
+    background-image:
+      linear-gradient(
+        rgba(123, 105, 214, 0.075) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        90deg,
+        rgba(123, 105, 214, 0.075) 1px,
+        transparent 1px
+      );
+
+    background-size: 48px 48px;
+
+    mask-image:
+      linear-gradient(
+        to bottom,
+        black 0%,
+        rgba(0, 0, 0, 0.65) 65%,
+        transparent 100%
+      );
+  }
+
+  /* ---------------------------------------------
+     Gradient text
+     --------------------------------------------- */
+
+  .text-gradient {
+    background-image:
+      linear-gradient(
+        100deg,
+        #c4b5fd 5%,
+        #a78bfa 35%,
+        #d879ff 62%,
+        #7c9fff 95%
+      );
+
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+  }
+
+  /* ---------------------------------------------
+     Primary button
+     --------------------------------------------- */
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-6 py-3 text-sm font-semibold text-white transition-all duration-300;
+
+    border: 1px solid rgba(196, 181, 253, 0.58);
+
+    background:
+      linear-gradient(
+        135deg,
+        #7c3aed 0%,
+        #8b5cf6 50%,
+        #a855f7 100%
+      );
+
+    box-shadow:
+      0 0 22px rgba(139, 92, 246, 0.30),
+      0 8px 30px rgba(0, 0, 0, 0.25);
+  }
+
+  .btn-primary:hover {
+    @apply -translate-y-0.5;
+
+    background:
+      linear-gradient(
+        135deg,
+        #8b5cf6 0%,
+        #a855f7 50%,
+        #c084fc 100%
+      );
+
+    box-shadow:
+      0 0 35px rgba(139, 92, 246, 0.48),
+      0 12px 38px rgba(0, 0, 0, 0.30);
+  }
+
+  .btn-primary:active {
+    @apply translate-y-0;
+  }
+
+  .btn-primary:disabled {
+    @apply cursor-not-allowed opacity-50;
+  }
+
+  /* ---------------------------------------------
+     Secondary button
+     --------------------------------------------- */
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-6 py-3 text-sm font-semibold text-slate-100 backdrop-blur-md transition-all duration-300;
+
+    border: 1px solid rgba(255, 255, 255, 0.16);
+
+    background: rgba(255, 255, 255, 0.045);
+  }
+
+  .btn-secondary:hover {
+    border-color: rgba(167, 139, 250, 0.52);
+    background: rgba(255, 255, 255, 0.085);
+
+    box-shadow:
+      0 0 24px rgba(139, 92, 246, 0.10);
+  }
+
+  /* ---------------------------------------------
+     Eyebrow
+     --------------------------------------------- */
+
+  .eyebrow {
+    @apply text-[10px] uppercase tracking-[0.22em];
+
+    color: rgba(183, 158, 255, 0.96);
+    font-family: var(--font-mono);
+
+    text-shadow:
+      0 0 16px rgba(139, 92, 246, 0.22);
+  }
+
+  /* ---------------------------------------------
+     Inputs
+     --------------------------------------------- */
+
+  .input {
+    @apply w-full rounded-xl px-4 py-3 text-sm text-white placeholder-slate-500 outline-none transition-all duration-200;
+
+    border: 1px solid rgba(255, 255, 255, 0.11);
+    background: rgba(255, 255, 255, 0.035);
+  }
+
+  .input:focus {
+    border-color: rgba(167, 139, 250, 0.55);
+
+    box-shadow:
+      0 0 0 3px rgba(139, 92, 246, 0.08);
+  }
+}
+
+/* =========================================================
+   FONT HELPERS
+   ========================================================= */
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.font-body {
+  font-family: var(--font-body);
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+/* =========================================================
+   HERO / TEXT HELPERS
+   ========================================================= */
+
+.hero-description {
+  color: #cbd5e1;
+
+  text-shadow:
+    0 0 18px rgba(0, 0, 0, 0.25);
+}
+
+.stats-number {
+  color: #f8fafc;
+
+  text-shadow:
+    0 0 18px rgba(139, 92, 246, 0.20);
+}
+
+.stats-label {
+  color: #94a3b8;
+}
+
+/* =========================================================
+   NOISE
+   ========================================================= */
+
+.noise::after {
+  content: "";
+
+  position: fixed;
+  inset: 0;
+
+  pointer-events: none;
+
+  opacity: 0.025;
+
+  z-index: 60;
+
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.28'/%3E%3C/svg%3E");
+}
+
+/* =========================================================
+   3D FALLBACK
+   ========================================================= */
+
+.matrix-fallback {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 360px;
+
+  perspective: 900px;
+  isolation: isolate;
+}
+
+.matrix-fallback-cube {
+  position: absolute;
+
+  top: 39%;
+  left: 50%;
+
+  width: 34px;
+  height: 34px;
+
+  transform:
+    translate(-50%, -50%)
+    rotateX(-18deg)
+    rotateY(35deg)
+    rotateZ(-2deg);
+
+  transform-style: preserve-3d;
+
+  animation:
+    matrix-fallback-float 7s ease-in-out infinite;
+}
+
+.matrix-fallback-block {
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 34px;
+  height: 34px;
+
+  border: 1px solid rgba(171, 146, 255, 0.50);
+  border-radius: 4px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(65, 49, 120, 0.98),
+      rgba(12, 16, 38, 0.98)
+    );
+
+  box-shadow:
+    inset 8px 8px 16px rgba(122, 91, 245, 0.18),
+    0 0 20px rgba(86, 70, 220, 0.24);
+
+  transform:
+    translate3d(
+      calc((var(--x) - 1) * 30px),
+      calc((var(--y) - 1) * 30px),
+      calc((var(--z) - 1) * 30px)
+    );
+
+  transform-style: preserve-3d;
+}
+
+.matrix-fallback-block-accent {
+  border-color: rgba(206, 185, 255, 0.95);
+
+  background:
+    linear-gradient(
+      145deg,
+      #c4b5fd,
+      #6d4ac4 70%
+    );
+
+  box-shadow:
+    0 0 24px rgba(139, 92, 246, 0.82),
+    inset 0 0 12px rgba(255, 255, 255, 0.40);
+}
+
+.matrix-fallback-core {
+  position: absolute;
+
+  z-index: 2;
+
+  top: 50%;
+  left: 50%;
+
+  width: 15px;
+  height: 15px;
+
+  border-radius: 4px;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 0 10px #ffffff,
+    0 0 24px #b49aff,
+    0 0 44px #8b5cf6;
+
+  transform:
+    translate(-50%, -50%)
+    translateZ(18px);
+}
+
+.matrix-fallback-orbit {
+  position: absolute;
+
+  top: 38%;
+  left: 50%;
+
+  width: 74%;
+  height: 24%;
+
+  border: 1px solid rgba(103, 155, 255, 0.72);
+
+  border-radius: 50%;
+
+  box-shadow:
+    0 0 18px rgba(41, 124, 244, 0.38),
+    0 0 34px rgba(41, 124, 244, 0.14);
+
+  transform:
+    translate(-50%, -50%)
+    rotate(-14deg);
+}
+
+.matrix-fallback-orbit-b {
+  width: 66%;
+  height: 19%;
+
+  border-color: rgba(190, 155, 255, 0.68);
+
+  box-shadow:
+    0 0 18px rgba(139, 92, 246, 0.32);
+
+  transform:
+    translate(-50%, -50%)
+    rotate(58deg);
+}
+
+.matrix-fallback-platform {
+  position: absolute;
+
+  top: 72%;
+  left: 50%;
+
+  width: 67%;
+  height: 14%;
+
+  border: 2px solid rgba(70, 153, 255, 0.88);
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      ellipse,
+      rgba(139, 92, 246, 0.30),
+      rgba(10, 11, 29, 0.92) 55%
+    );
+
+  box-shadow:
+    0 0 20px rgba(41, 124, 244, 0.78),
+    0 0 42px rgba(139, 92, 246, 0.22),
+    inset 0 0 18px rgba(139, 92, 246, 0.62);
+
+  transform:
+    translateX(-50%)
+    rotateX(58deg);
+}
+
+.matrix-fallback-platform::before,
+.matrix-fallback-platform::after {
+  content: "";
+
+  position: absolute;
+
+  inset: 10% 8%;
+
+  border: 1px solid rgba(183, 146, 255, 0.92);
+
+  border-radius: 50%;
+}
+
+.matrix-fallback-platform::after {
+  inset: -12% -4%;
+
+  border-color: rgba(47, 133, 255, 0.48);
+
+  filter: blur(1px);
+}
+
+.matrix-fallback-float {
+  position: absolute;
+
+  width: 18px;
+  height: 18px;
+
+  border: 1px solid rgba(180, 155, 255, 0.76);
+
+  background: rgba(56, 37, 120, 0.88);
+
+  box-shadow:
+    0 0 18px rgba(123, 92, 246, 0.58);
+
+  transform:
+    rotate(26deg)
+    skewY(-18deg);
+
+  animation:
+    matrix-fallback-float 5s ease-in-out infinite reverse;
+}
+
+.matrix-fallback-float-a {
+  top: 17%;
+  left: 18%;
+}
+
+.matrix-fallback-float-b {
+  top: 27%;
+  right: 15%;
+
+  width: 12px;
+  height: 12px;
+
+  animation-delay: -1.8s;
+}
+
+/* =========================================================
+   ANIMATION
+   ========================================================= */
+
+@keyframes matrix-fallback-float {
+  0%,
+  100% {
+    translate: 0 0;
+  }
+
+  50% {
+    translate: 0 -10px;
+  }
+}
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 768px) {
+  .grid-bg {
+    background-size: 36px 36px;
+  }
+
+  .glass-card,
+  .glass-panel {
+    backdrop-filter: blur(14px);
+  }
+}
+/* =========================================================
+   MATRIXZ FUTURISTIC STAT CARDS
+   ========================================================= */
+
+.matrix-stat-card {
+  position: relative;
+  min-height: 150px;
+  padding: 22px 22px 20px;
+
+  overflow: hidden;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(22, 25, 55, 0.92),
+      rgba(7, 9, 24, 0.96)
+    );
+
+  border: 1px solid rgba(139, 92, 246, 0.22);
+
+  border-radius: 16px;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.035),
+    inset 0 0 35px rgba(99, 60, 180, 0.035),
+    0 15px 45px rgba(0, 0, 0, 0.25);
+
+  transition:
+    transform 0.35s ease,
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+
+/* subtle futuristic grid */
+
+.matrix-stat-card::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+
+  background-image:
+    linear-gradient(
+      rgba(139, 92, 246, 0.045) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(139, 92, 246, 0.045) 1px,
+      transparent 1px
+    );
+
+  background-size: 25px 25px;
+
+  mask-image: linear-gradient(
+    to bottom right,
+    black,
+    transparent 80%
+  );
+
+  pointer-events: none;
+}
+
+
+/* purple atmospheric glow */
+
+.matrix-stat-card::after {
+  content: "";
+
+  position: absolute;
+
+  width: 130px;
+  height: 130px;
+
+  right: -60px;
+  bottom: -70px;
+
+  border-radius: 50%;
+
+  background: rgba(124, 58, 237, 0.18);
+
+  filter: blur(35px);
+
+  transition: all 0.4s ease;
+
+  pointer-events: none;
+}
+
+
+/* hover */
+
+.matrix-stat-card:hover {
+  transform: translateY(-6px);
+
+  border-color: rgba(167, 139, 250, 0.58);
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    0 0 25px rgba(124, 58, 237, 0.12),
+    0 18px 55px rgba(0, 0, 0, 0.38);
+}
+
+.matrix-stat-card:hover::after {
+  width: 190px;
+  height: 190px;
+
+  background: rgba(139, 92, 246, 0.24);
+}
+
+
+/* =========================================================
+   ICON
+   ========================================================= */
+
+.matrix-stat-icon {
+  position: relative;
+
+  width: 48px;
+  height: 48px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 18px;
+
+  color: #a78bfa;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(124, 58, 237, 0.22),
+      rgba(37, 24, 75, 0.55)
+    );
+
+  border: 1px solid rgba(139, 92, 246, 0.30);
+
+  border-radius: 12px;
+
+  box-shadow:
+    inset 0 0 18px rgba(139, 92, 246, 0.08),
+    0 0 18px rgba(124, 58, 237, 0.08);
+
+  z-index: 2;
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.matrix-stat-card:hover .matrix-stat-icon {
+  transform: translateY(-2px);
+
+  box-shadow:
+    inset 0 0 20px rgba(139, 92, 246, 0.13),
+    0 0 25px rgba(139, 92, 246, 0.20);
+}
+
+
+/* =========================================================
+   VALUE
+   ========================================================= */
+
+.matrix-stat-content {
+  position: relative;
+  z-index: 2;
+}
+
+.matrix-stat-value {
+  font-family: var(--font-display);
+
+  font-size: 31px;
+  line-height: 1;
+
+  font-weight: 800;
+
+  letter-spacing: 0.02em;
+
+  color: #f5f3ff;
+
+  text-shadow:
+    0 0 18px rgba(167, 139, 250, 0.20);
+}
+
+.matrix-stat-label {
+  margin-top: 8px;
+
+  font-family: var(--font-mono);
+
+  font-size: 11px;
+
+  letter-spacing: 0.14em;
+
+  text-transform: uppercase;
+
+  color: rgba(148, 163, 184, 0.75);
+}
+
+
+/* =========================================================
+   FUTURISTIC CORNER BRACKETS
+   ========================================================= */
+
+.corner {
+  position: absolute;
+
+  width: 10px;
+  height: 10px;
+
+  border-color: rgba(167, 139, 250, 0.65);
+
+  opacity: 0.7;
+
+  transition:
+    width 0.3s ease,
+    height 0.3s ease,
+    opacity 0.3s ease;
+}
+
+.corner-tl {
+  top: 7px;
+  left: 7px;
+
+  border-top: 1px solid;
+  border-left: 1px solid;
+}
+
+.corner-tr {
+  top: 7px;
+  right: 7px;
+
+  border-top: 1px solid;
+  border-right: 1px solid;
+}
+
+.corner-bl {
+  bottom: 7px;
+  left: 7px;
+
+  border-bottom: 1px solid;
+  border-left: 1px solid;
+}
+
+.corner-br {
+  bottom: 7px;
+  right: 7px;
+
+  border-bottom: 1px solid;
+  border-right: 1px solid;
+}
+
+.matrix-stat-card:hover .corner {
+  width: 15px;
+  height: 15px;
+
+  opacity: 1;
+}
+
+
+/* =========================================================
+   SCANNING LIGHT
+   ========================================================= */
+
+.scan-line {
+  position: absolute;
+
+  top: 0;
+  left: -100%;
+
+  width: 45%;
+  height: 1px;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(167, 139, 250, 0.8),
+    transparent
+  );
+
+  opacity: 0;
+
+  transition: opacity 0.2s ease;
+}
+
+.matrix-stat-card:hover .scan-line {
+  opacity: 1;
+
+  animation: matrix-scan 1.5s ease-in-out infinite;
+}
+
+@keyframes matrix-scan {
+  0% {
+    left: -50%;
+  }
+
+  100% {
+    left: 110%;
+  }
+}
+
+
+/* =========================================================
+   DECORATIVE NODE
+   ========================================================= */
+
+/* ================================
+   MATRIXZ FUTURISTIC STAT CARDS
+   ================================ */
+
+.matrix-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  max-width: 650px;
+}
+
+@media (min-width: 640px) {
+  .matrix-stats-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+.matrix-future-card {
+  position: relative;
+  min-height: 125px;
+  overflow: hidden;
+
+  border: 1px solid rgba(139, 92, 246, 0.45);
+  border-radius: 12px;
+
+  /* BRIGHTER BLUE-VIOLET BACKGROUND */
+  background:
+    linear-gradient(
+      145deg,
+      rgba(38, 42, 82, 0.96),
+      rgba(20, 25, 58, 0.96)
+    );
+
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.10),
+    inset 0 -20px 40px rgba(8, 10, 30, 0.25),
+    0 0 18px rgba(99, 102, 241, 0.16);
+
+  padding: 15px;
+
+  transition:
+    transform 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+/* subtle futuristic glow */
+.matrix-future-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background:
+    radial-gradient(
+      circle at 15% 15%,
+      rgba(139, 92, 246, 0.22),
+      transparent 42%
+    );
+
+  pointer-events: none;
+}
+
+/* hover */
+.matrix-future-card:hover {
+  transform: translateY(-5px);
+
+  border-color: rgba(167, 139, 250, 0.85);
+
+  box-shadow:
+    0 0 25px rgba(139, 92, 246, 0.28),
+    0 12px 35px rgba(0, 0, 0, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14);
+}
+
+/* ================================
+   ICON
+   ================================ */
+
+.matrix-future-icon {
+  position: relative;
+  z-index: 2;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 38px;
+  height: 38px;
+
+  border: 1px solid rgba(167, 139, 250, 0.5);
+  border-radius: 9px;
+
+  background: rgba(139, 92, 246, 0.18);
+
+  color: #c4b5fd;
+
+  box-shadow:
+    0 0 15px rgba(139, 92, 246, 0.20),
+    inset 0 0 12px rgba(139, 92, 246, 0.10);
+}
+
+/* ================================
+   NUMBER
+   ================================ */
+
+.matrix-future-value {
+  position: relative;
+  z-index: 5;
+
+  margin-top: 9px;
+
+  font-family: var(--font-display);
+
+  font-size: 30px;
+  font-weight: 800;
+  line-height: 1;
+
+  color: #ffffff !important;
+
+  opacity: 1 !important;
+
+  text-shadow:
+    0 0 8px rgba(255, 255, 255, 0.18),
+    0 0 18px rgba(167, 139, 250, 0.45);
+
+  -webkit-text-fill-color: #ffffff;
+}
+
+/* ================================
+   LABEL
+   ================================ */
+
+.matrix-future-label {
+  position: relative;
+  z-index: 2;
+
+  margin-top: 5px;
+
+  font-family: var(--font-mono);
+
+  font-size: 9px;
+  font-weight: 500;
+
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+
+  color: #a5b4fc;
+}
+
+/* ================================
+   ACTIVE STATUS
+   ================================ */
+
+.matrix-card-status {
+  position: absolute;
+  top: 10px;
+  right: 11px;
+
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  font-family: var(--font-mono);
+
+  font-size: 6px;
+  letter-spacing: 0.12em;
+
+  color: rgba(167, 243, 208, 0.75);
+}
+
+.matrix-card-status span {
+  width: 4px;
+  height: 4px;
+
+  border-radius: 50%;
+
+  background: #86efac;
+
+  box-shadow:
+    0 0 7px rgba(134, 239, 172, 0.9);
+}
+
+/* ================================
+   SCAN LINE
+   ================================ */
+
+.matrix-card-scan {
+  position: absolute;
+
+  top: 0;
+  left: -100%;
+
+  width: 60%;
+  height: 1px;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(167, 139, 250, 0.7),
+    transparent
+  );
+
+  animation: matrix-scan 4s linear infinite;
+}
+
+@keyframes matrix-scan {
+  0% {
+    left: -60%;
+  }
+
+  100% {
+    left: 120%;
+  }
+}
+
+/* ================================
+   BOTTOM TECH LINE
+   ================================ */
+
+.matrix-card-line {
+  position: absolute;
+
+  bottom: 10px;
+  left: 15px;
+  right: 15px;
+
+  height: 1px;
+
+  background: rgba(139, 92, 246, 0.15);
+}
+
+.matrix-card-line span {
+  display: block;
+
+  width: 25px;
+  height: 1px;
+
+  background: #a78bfa;
+
+  box-shadow:
+    0 0 8px rgba(167, 139, 250, 0.8);
+}
+
+/* ================================
+   CORNER DETAILS
+   ================================ */
+
+.matrix-corner {
+  position: absolute;
+
+  width: 7px;
+  height: 7px;
+
+  border-color: rgba(167, 139, 250, 0.75);
+  border-style: solid;
+}
+
+.matrix-corner.top-left {
+  top: 5px;
+  left: 5px;
+
+  border-width: 1px 0 0 1px;
+}
+
+.matrix-corner.top-right {
+  top: 5px;
+  right: 5px;
+
+  border-width: 1px 1px 0 0;
+}
+
+.matrix-corner.bottom-left {
+  bottom: 5px;
+  left: 5px;
+
+  border-width: 0 0 1px 1px;
+}
+
+.matrix-corner.bottom-right {
+  bottom: 5px;
+  right: 5px;
+
+  border-width: 0 1px 1px 0;
+}
