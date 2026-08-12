@@ -46,7 +46,7 @@ export default function Home() {
   const { data: achievements, loading: achLoading } = useFetch(() => achievementService.list());
   const { data: galleryImages, loading: galLoading } = useFetch(() => galleryService.list());
   const { data: teams, loading: teamsLoading } = useFetch(() => teamService.listTeams());
-
+  const { data:pastEvents, loading: pastEventsLoading } = useFetch(() => eventService.list("past"));
   const topEvents = upcomingEvents?.slice(0, 3) ?? [];
   const topMembers = members?.slice(0, 6) ?? [];
   const topAchievements = achievements?.slice(0, 4) ?? [];
@@ -75,7 +75,7 @@ export default function Home() {
 
   {/* LinkedIn */}
   <a
-    href="https://www.linkedin.com/in/matrixz-cse-pesce-280312361/"
+    href="https://www.linkedin.com/in/matrixz-pesce-4891bb429/"
     target="_blank"
     rel="noopener noreferrer"
     aria-label="LinkedIn"
@@ -119,25 +119,25 @@ export default function Home() {
             <div className="matrix-stats-grid mt-10">
   {[
     {
-      icon: Users2,
-      value: `${(members?.length ?? 0) || "120"}+`,
-      label: "Members",
-    },
-    {
-      icon: CalendarDays,
-      value: `${(upcomingEvents?.length ?? 0) || "30"}+`,
-      label: "Events",
-    },
-    {
-      icon: Trophy,
-      value: `${(achievements?.length ?? 0) || "15"}+`,
-      label: "Achievements",
-    },
-    {
-      icon: Code2,
-      value: `${(teams?.length ?? 0) || "8"}+`,
-      label: "Teams",
-    }
+  icon: Users2,
+  value: `${members?.length ?? 0}+`,
+  label: "Members",
+},
+{
+  icon: CalendarDays,
+  value: `${pastEvents?.length ?? 0}+`,
+  label: "Events",
+},
+{
+  icon: Trophy,
+  value: `${achievements?.length ?? 0}+`,
+  label: "Achievements",
+},
+{
+  icon: Code2,
+  value: `${teams?.length ?? 0}+`,
+  label: "Teams",
+}
   ].map((s, index) => (
     <div
       key={s.label}
@@ -500,7 +500,7 @@ export default function Home() {
 
     {/* LinkedIn */}
     <a
-      href="https://www.linkedin.com/in/matrixz-cse-pesce-280312361/"
+      href="https://www.linkedin.com/in/matrixz-pesce-4891bb429/"
       target="_blank"
       rel="noopener noreferrer"
       aria-label="LinkedIn"

@@ -60,7 +60,7 @@ export default function Contact() {
 
     {/* LinkedIn */}
     <a
-      href="https://www.linkedin.com/in/matrixz-cse-pesce-280312361/"
+      href="https://www.linkedin.com/in/matrixz-pesce-4891bb429/"
       target="_blank"
       rel="noopener noreferrer"
       aria-label="LinkedIn"
