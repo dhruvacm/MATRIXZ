@@ -48,7 +48,7 @@ export default function Home() {
   const { data: teams, loading: teamsLoading } = useFetch(() => teamService.listTeams());
   const { data:pastEvents, loading: pastEventsLoading } = useFetch(() => eventService.list("past"));
   const topEvents = upcomingEvents?.slice(0, 3) ?? [];
-  const topMembers = members?.slice(0, 6) ?? [];
+  const topMembers = members?.slice(0, 13) ?? [];
   const topAchievements = achievements?.slice(0, 4) ?? [];
   const topGallery = galleryImages?.slice(0, 5) ?? [];
 
