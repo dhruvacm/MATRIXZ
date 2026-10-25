@@ -58,7 +58,7 @@ export default function Home() {
   );
 
   const topEvents = upcomingEvents?.slice(0, 3) ?? [];
-  const topMembers = members?.slice(0, 12) ?? [];
+  const topMembers = members?.slice(0, 13) ?? [];
   const topAchievements = achievements?.slice(0, 4) ?? [];
   const topGallery = galleryImages?.slice(0, 5) ?? [];
 
