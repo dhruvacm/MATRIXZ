@@ -1,3 +1,4 @@
+
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { MapPin, ExternalLink } from "lucide-react";
@@ -26,26 +27,26 @@ export function EventCard({
       className="group flex flex-col overflow-hidden rounded-lg border border-[#E1E4DC] bg-white shadow-subtle transition-all duration-200 hover:-translate-y-0.5 hover:border-[#8CB8A5] hover:shadow-card"
     >
       {/* BANNER IMAGE */}
-      <Link
-        to={`/events/${event.slug}`}
-        className="relative block aspect-[16/9] w-full overflow-hidden bg-[#FAF9F5]"
-      >
-        {event.banner?.url ? (
-
-          <img
-            src={event.banner.url}
-            alt={event.title}
-            className="h-full w-full object-contain transition-transform duration-300"
-            loading="lazy"
-          />
-
-        ) : (
-          <div className="flex h-full w-full items-center justify-center bg-[#EDF3EE]">
-            <span className="font-display text-xl font-bold tracking-wider text-[#8CB8A5]">
-              MATRIXZ
-            </span>
-          </div>
-        )}
+      <div className="relative">
+        <Link
+          to={`/events/${event.slug}`}
+          className="block w-full overflow-hidden bg-[#FAF9F5]"
+        >
+          {event.banner?.url ? (
+            <img
+              src={event.banner.url}
+              alt={event.title}
+              className="block h-auto max-h-[420px] w-full object-contain transition-transform duration-300"
+              loading="lazy"
+            />
+          ) : (
+            <div className="flex h-[220px] w-full items-center justify-center bg-[#EDF3EE]">
+              <span className="font-display text-xl font-bold tracking-wider text-[#8CB8A5]">
+                MATRIXZ
+              </span>
+            </div>
+          )}
+        </Link>
 
         {/* DATE BADGE */}
         <div className="absolute left-3 top-3 rounded border border-[#E1E4DC] bg-[#F7F6F0]/95 px-2.5 py-1 text-center leading-none shadow-subtle backdrop-blur-sm">
@@ -61,7 +62,7 @@ export function EventCard({
         <span className="absolute right-3 top-3 rounded border border-[#CAD9CC] bg-[#DCE8DE]/95 px-2 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-wider text-[#214E3D] shadow-subtle backdrop-blur-sm">
           {event.eventType}
         </span>
-      </Link>
+      </div>
 
       {/* EVENT INFORMATION */}
       <div className="flex flex-1 flex-col p-5">
