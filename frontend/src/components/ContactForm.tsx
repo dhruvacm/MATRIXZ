@@ -37,27 +37,61 @@ export function ContactForm() {
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-4" noValidate>
       <div>
-        <label htmlFor="name" className="mb-1.5 block text-xs font-medium text-slate-400">Your Name</label>
-        <input id="name" {...register("name")} className="w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-white placeholder:text-slate-600 focus:border-violet-glow/50 focus:outline-none" placeholder="Full name" />
-        {errors.name && <p className="mt-1 text-xs text-rose-400">{errors.name.message}</p>}
+        <label htmlFor="name" className="mb-1 block font-mono text-[11px] font-semibold uppercase tracking-wider text-[#202923]">
+          Full Name
+        </label>
+        <input
+          id="name"
+          {...register("name")}
+          className="w-full rounded-md border border-[#E1E4DC] bg-white px-3.5 py-2.5 text-sm text-[#202923] placeholder:text-[#95A198] shadow-subtle transition-all focus:border-[#214E3D] focus:outline-none focus:ring-1 focus:ring-[#214E3D]"
+          placeholder="e.g. Alex Morgan"
+        />
+        {errors.name && <p className="mt-1 font-mono text-[11px] text-rose-600">{errors.name.message}</p>}
       </div>
+
       <div>
-        <label htmlFor="email" className="mb-1.5 block text-xs font-medium text-slate-400">Your Email</label>
-        <input id="email" type="email" {...register("email")} className="w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-white placeholder:text-slate-600 focus:border-violet-glow/50 focus:outline-none" placeholder="you@example.com" />
-        {errors.email && <p className="mt-1 text-xs text-rose-400">{errors.email.message}</p>}
+        <label htmlFor="email" className="mb-1 block font-mono text-[11px] font-semibold uppercase tracking-wider text-[#202923]">
+          Institutional / Personal Email
+        </label>
+        <input
+          id="email"
+          type="email"
+          {...register("email")}
+          className="w-full rounded-md border border-[#E1E4DC] bg-white px-3.5 py-2.5 text-sm text-[#202923] placeholder:text-[#95A198] shadow-subtle transition-all focus:border-[#214E3D] focus:outline-none focus:ring-1 focus:ring-[#214E3D]"
+          placeholder="alex@college.edu"
+        />
+        {errors.email && <p className="mt-1 font-mono text-[11px] text-rose-600">{errors.email.message}</p>}
       </div>
+
       <div>
-        <label htmlFor="subject" className="mb-1.5 block text-xs font-medium text-slate-400">Subject</label>
-        <input id="subject" {...register("subject")} className="w-full rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-white placeholder:text-slate-600 focus:border-violet-glow/50 focus:outline-none" placeholder="What's this about?" />
-        {errors.subject && <p className="mt-1 text-xs text-rose-400">{errors.subject.message}</p>}
+        <label htmlFor="subject" className="mb-1 block font-mono text-[11px] font-semibold uppercase tracking-wider text-[#202923]">
+          Subject
+        </label>
+        <input
+          id="subject"
+          {...register("subject")}
+          className="w-full rounded-md border border-[#E1E4DC] bg-white px-3.5 py-2.5 text-sm text-[#202923] placeholder:text-[#95A198] shadow-subtle transition-all focus:border-[#214E3D] focus:outline-none focus:ring-1 focus:ring-[#214E3D]"
+          placeholder="Topic of inquiry"
+        />
+        {errors.subject && <p className="mt-1 font-mono text-[11px] text-rose-600">{errors.subject.message}</p>}
       </div>
+
       <div>
-        <label htmlFor="message" className="mb-1.5 block text-xs font-medium text-slate-400">Message</label>
-        <textarea id="message" rows={4} {...register("message")} className="w-full resize-none rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-sm text-white placeholder:text-slate-600 focus:border-violet-glow/50 focus:outline-none" placeholder="Tell us what's on your mind" />
-        {errors.message && <p className="mt-1 text-xs text-rose-400">{errors.message.message}</p>}
+        <label htmlFor="message" className="mb-1 block font-mono text-[11px] font-semibold uppercase tracking-wider text-[#202923]">
+          Message
+        </label>
+        <textarea
+          id="message"
+          rows={4}
+          {...register("message")}
+          className="w-full resize-none rounded-md border border-[#E1E4DC] bg-white px-3.5 py-2.5 text-sm text-[#202923] placeholder:text-[#95A198] shadow-subtle transition-all focus:border-[#214E3D] focus:outline-none focus:ring-1 focus:ring-[#214E3D]"
+          placeholder="Provide context or details..."
+        />
+        {errors.message && <p className="mt-1 font-mono text-[11px] text-rose-600">{errors.message.message}</p>}
       </div>
-      <button type="submit" disabled={isSubmitting} className="btn-primary w-full">
-        {isSubmitting ? "Sending..." : "Send Message"} <Send className="h-4 w-4" />
+
+      <button type="submit" disabled={isSubmitting} className="btn-primary flex w-full items-center justify-center gap-2 py-2.5 text-sm font-semibold">
+        {isSubmitting ? "Transmitting..." : "Send Message"} <Send className="h-4 w-4" />
       </button>
     </form>
   );

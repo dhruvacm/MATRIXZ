@@ -15,15 +15,15 @@ export default function EventDetails() {
 
   if (loading) {
     return (
-      <div className="px-5 py-24">
-        <LoadingSpinner label="Loading event" />
+      <div className="bg-[#F7F6F0] px-5 py-24">
+        <LoadingSpinner label="Loading event record" />
       </div>
     );
   }
 
   if (error || !event) {
     return (
-      <div className="mx-auto max-w-2xl px-5 py-24">
+      <div className="bg-[#F7F6F0] mx-auto max-w-2xl px-5 py-24">
         <ErrorState message={error ?? "This event could not be found."} onRetry={refetch} />
       </div>
     );
@@ -36,131 +36,195 @@ export default function EventDetails() {
     ["Upcoming", "Registration Open"].includes(event.status);
 
   return (
-    <div className="pb-24 pt-8">
+    <div className="bg-[#F7F6F0] pb-24 pt-8">
       <div className="mx-auto max-w-5xl px-5 lg:px-8">
-        <Link to="/events" className="inline-flex items-center gap-1.5 text-sm text-slate-400 hover:text-violet-glow">
-          <ArrowLeft className="h-4 w-4" /> Back to Events
+        <Link
+          to="/events"
+          className="inline-flex items-center gap-1.5 font-mono text-xs font-semibold uppercase tracking-wider text-[#6E7A71] transition-colors hover:text-[#214E3D]"
+        >
+          <ArrowLeft className="h-4 w-4" /> Back to Calendar
         </Link>
 
-        <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5 }} className="mt-6 overflow-hidden rounded-3xl border border-white/[0.06]">
-          <div className="relative aspect-[21/9] w-full bg-gradient-to-br from-violet-deep/30 to-electric/20">
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="mt-6 overflow-hidden rounded-lg border border-[#E1E4DC] bg-white shadow-subtle"
+        >
+          <div className="relative aspect-[21/9] w-full bg-[#FAF9F5]">
             {event.banner?.url ? (
-              <img src={event.banner.url} alt={event.title} className="h-full w-full object-cover" />
+              <img
+                src={event.banner.url}
+                alt={event.title}
+                className="h-full w-full object-cover"
+              />
             ) : (
-              <div className="flex h-full w-full items-center justify-center">
-                <span className="font-display text-3xl text-white/30">MATRIXZ</span>
+              <div className="flex h-full w-full items-center justify-center bg-[#EDF3EE]">
+                <span className="font-display text-4xl font-bold tracking-wider text-[#8CB8A5]">
+                  MATRIXZ
+                </span>
               </div>
             )}
-            <div className="absolute inset-0 bg-gradient-to-t from-void via-transparent to-transparent" />
           </div>
         </motion.div>
 
         <div className="mt-8 grid gap-10 lg:grid-cols-3">
           <div className="lg:col-span-2">
-            <span className="eyebrow">{event.eventType} · {event.status}</span>
-            <h1 className="mt-2 font-display text-3xl font-bold text-white sm:text-4xl">{event.title}</h1>
-            <p className="mt-5 whitespace-pre-line leading-relaxed text-slate-400">{event.description}</p>
+            <span className="inline-block rounded border border-[#CAD9CC] bg-[#DCE8DE] px-2.5 py-0.5 font-mono text-[11px] font-semibold uppercase tracking-wider text-[#214E3D]">
+              {event.eventType} • {event.status}
+            </span>
+            <h1 className="mt-2.5 font-display text-3xl font-extrabold tracking-tight text-[#202923] sm:text-4xl">
+              {event.title}
+            </h1>
+            <p className="mt-5 whitespace-pre-line text-base leading-relaxed text-[#48544B]">
+              {event.description}
+            </p>
 
             {event.eligibility && (
-              <div className="mt-8">
-                <h3 className="flex items-center gap-2 font-display text-lg font-semibold text-white">
-                  <ShieldCheck className="h-4 w-4 text-violet-glow" /> Eligibility
+              <div className="mt-8 rounded-lg border border-[#E1E4DC] bg-white p-5 shadow-subtle">
+                <h3 className="flex items-center gap-2 font-display text-base font-bold text-[#202923]">
+                  <ShieldCheck className="h-4 w-4 text-[#214E3D]" /> Eligibility Criteria
                 </h3>
-                <p className="mt-2 text-sm text-slate-400">{event.eligibility}</p>
+                <p className="mt-2 text-sm leading-relaxed text-[#48544B]">
+                  {event.eligibility}
+                </p>
               </div>
             )}
 
             {event.rules && (
-              <div className="mt-8">
-                <h3 className="font-display text-lg font-semibold text-white">Rules</h3>
-                <p className="mt-2 whitespace-pre-line text-sm text-slate-400">{event.rules}</p>
+              <div className="mt-8 rounded-lg border border-[#E1E4DC] bg-white p-5 shadow-subtle">
+                <h3 className="font-display text-base font-bold text-[#202923]">Rules & Guidelines</h3>
+                <p className="mt-2 whitespace-pre-line text-sm leading-relaxed text-[#48544B]">
+                  {event.rules}
+                </p>
               </div>
             )}
 
             {event.isPast && event.results && (
-              <div className="mt-8">
-                <h3 className="flex items-center gap-2 font-display text-lg font-semibold text-white">
-                  <Trophy className="h-4 w-4 text-violet-glow" /> Results
+              <div className="mt-8 rounded-lg border border-[#8CB8A5] bg-[#EDF3EE] p-5 shadow-subtle">
+                <h3 className="flex items-center gap-2 font-display text-base font-bold text-[#202923]">
+                  <Trophy className="h-4 w-4 text-[#214E3D]" /> Results & Official Outcomes
                 </h3>
-                <p className="mt-2 whitespace-pre-line text-sm text-slate-400">{event.results}</p>
+                <p className="mt-2 whitespace-pre-line text-sm leading-relaxed text-[#202923]">
+                  {event.results}
+                </p>
               </div>
             )}
 
             {(event.organizers || event.contactInfo) && (
               <div className="mt-8 grid gap-4 sm:grid-cols-2">
                 {event.organizers && (
-                  <div className="glass-panel p-4">
-                    <div className="text-xs uppercase tracking-wide text-slate-500">Organizers</div>
-                    <div className="mt-1 text-sm text-slate-200">{event.organizers}</div>
+                  <div className="rounded-lg border border-[#E1E4DC] bg-white p-4 shadow-subtle">
+                    <div className="font-mono text-[10px] font-semibold uppercase tracking-wider text-[#6E7A71]">
+                      Organizers
+                    </div>
+                    <div className="mt-1 text-sm font-semibold text-[#202923]">
+                      {event.organizers}
+                    </div>
                   </div>
                 )}
                 {event.contactInfo && (
-                  <div className="glass-panel p-4">
-                    <div className="text-xs uppercase tracking-wide text-slate-500">Contact</div>
-                    <div className="mt-1 text-sm text-slate-200">{event.contactInfo}</div>
+                  <div className="rounded-lg border border-[#E1E4DC] bg-white p-4 shadow-subtle">
+                    <div className="font-mono text-[10px] font-semibold uppercase tracking-wider text-[#6E7A71]">
+                      Official Contact
+                    </div>
+                    <div className="mt-1 text-sm font-semibold text-[#202923]">
+                      {event.contactInfo}
+                    </div>
                   </div>
                 )}
               </div>
             )}
           </div>
 
-          <motion.aside initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.5, delay: 0.1 }} className="glass-panel h-fit p-6">
+          <motion.aside
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="h-fit rounded-lg border border-[#E1E4DC] bg-white p-6 shadow-subtle"
+          >
             <div className="space-y-4 text-sm">
               <div className="flex items-start gap-3">
-                <Calendar className="mt-0.5 h-4 w-4 shrink-0 text-violet-glow" />
+                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded border border-[#DCE8DE] bg-[#EDF3EE] text-[#214E3D]">
+                  <Calendar className="h-4 w-4" />
+                </div>
                 <div>
-                  <div className="text-slate-200">{formatDate(event.date)}</div>
-                  <div className="text-xs text-slate-500">Event date</div>
+                  <div className="font-semibold text-[#202923]">{formatDate(event.date)}</div>
+                  <div className="font-mono text-[11px] text-[#6E7A71]">Session date</div>
                 </div>
               </div>
+
               {(event.startTime || event.endTime) && (
                 <div className="flex items-start gap-3">
-                  <Clock className="mt-0.5 h-4 w-4 shrink-0 text-violet-glow" />
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded border border-[#DCE8DE] bg-[#EDF3EE] text-[#214E3D]">
+                    <Clock className="h-4 w-4" />
+                  </div>
                   <div>
-                    <div className="text-slate-200">{event.startTime}{event.endTime ? ` – ${event.endTime}` : ""}</div>
-                    <div className="text-xs text-slate-500">Timing</div>
+                    <div className="font-semibold text-[#202923]">
+                      {event.startTime}
+                      {event.endTime ? ` – ${event.endTime}` : ""}
+                    </div>
+                    <div className="font-mono text-[11px] text-[#6E7A71]">Scheduled time</div>
                   </div>
                 </div>
               )}
+
               <div className="flex items-start gap-3">
-                <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-violet-glow" />
+                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded border border-[#DCE8DE] bg-[#EDF3EE] text-[#214E3D]">
+                  <MapPin className="h-4 w-4" />
+                </div>
                 <div>
-                  <div className="text-slate-200">{event.venue}</div>
-                  <div className="text-xs text-slate-500">Venue</div>
+                  <div className="font-semibold text-[#202923]">{event.venue}</div>
+                  <div className="font-mono text-[11px] text-[#6E7A71]">Venue</div>
                 </div>
               </div>
+
               {event.registrationDeadline && (
                 <div className="flex items-start gap-3">
-                  <Clock className="mt-0.5 h-4 w-4 shrink-0 text-violet-glow" />
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded border border-[#DCE8DE] bg-[#EDF3EE] text-[#214E3D]">
+                    <Clock className="h-4 w-4" />
+                  </div>
                   <div>
-                    <div className="text-slate-200">{formatDate(event.registrationDeadline)}</div>
-                    <div className="text-xs text-slate-500">Registration deadline</div>
+                    <div className="font-semibold text-[#202923]">
+                      {formatDate(event.registrationDeadline)}
+                    </div>
+                    <div className="font-mono text-[11px] text-[#6E7A71]">Deadline</div>
                   </div>
                 </div>
               )}
+
               {event.maxParticipants && (
                 <div className="flex items-start gap-3">
-                  <Users className="mt-0.5 h-4 w-4 shrink-0 text-violet-glow" />
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded border border-[#DCE8DE] bg-[#EDF3EE] text-[#214E3D]">
+                    <Users className="h-4 w-4" />
+                  </div>
                   <div>
-                    <div className="text-slate-200">{event.maxParticipants} seats</div>
-                    <div className="text-xs text-slate-500">Capacity</div>
+                    <div className="font-semibold text-[#202923]">
+                      {event.maxParticipants} seats
+                    </div>
+                    <div className="font-mono text-[11px] text-[#6E7A71]">Capacity limit</div>
                   </div>
                 </div>
               )}
             </div>
 
-            <div className="mt-6">
+            <div className="mt-6 border-t border-[#E1E4DC] pt-6">
               {canRegister ? (
-                <a href={event.registrationUrl!} target="_blank" rel="noopener noreferrer" className="btn-primary w-full">
+                <a
+                  href={event.registrationUrl!}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-primary flex w-full items-center justify-center gap-1.5 py-2.5 text-center text-sm font-semibold"
+                >
                   Register Now <ExternalLink className="h-4 w-4" />
                 </a>
               ) : event.isPast ? (
-                <div className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-center text-sm text-slate-500">
-                  This event has concluded
+                <div className="rounded border border-[#E1E4DC] bg-[#FAF9F5] px-4 py-2.5 text-center font-mono text-xs text-[#6E7A71]">
+                  Event has concluded
                 </div>
               ) : (
-                <div className="rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3 text-center text-sm text-slate-500">
-                  Registration is not open yet
+                <div className="rounded border border-[#E1E4DC] bg-[#FAF9F5] px-4 py-2.5 text-center font-mono text-xs text-[#6E7A71]">
+                  Registration not open
                 </div>
               )}
             </div>

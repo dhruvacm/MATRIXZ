@@ -8,9 +8,9 @@
    ========================================================= */
 
 :root {
-  --font-body: "Manrope", ui-sans-serif, sans-serif;
-  --font-display: "Barlow Condensed", ui-sans-serif, sans-serif;
-  --font-mono: "DM Mono", ui-monospace, monospace;
+  --font-body: "Inter", ui-sans-serif, sans-serif;
+  --font-display: "Space Grotesk", ui-sans-serif, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
   --font-premium: "Cinzel", serif;
 
   --color-void: #050610;
@@ -1211,4 +1211,204 @@
   right: 5px;
 
   border-width: 0 1px 1px 0;
+}
+
+/* =========================================================
+   PUBLIC SITE - EDITORIAL CS CLUB THEME
+   Warm ivory, deep forest green, charcoal text, muted sage,
+   soft teal, and subtle neutral borders.
+   Preserves dark styling for admin panel while giving public site
+   a distinct, premium academic engineering community aesthetic.
+   ========================================================= */
+
+.public-site {
+  background-color: #F7F6F0;
+  color: #202923;
+  font-family: var(--font-body);
+}
+
+.public-site h1,
+.public-site h2,
+.public-site h3,
+.public-site h4 {
+  font-family: var(--font-display);
+  color: #202923;
+  letter-spacing: -0.02em;
+}
+
+.public-site ::selection {
+  background: #DCE8DE;
+  color: #214E3D;
+}
+
+.public-site .glass-panel {
+  background: #FFFFFF;
+  border: 1px solid #E1E4DC;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px 0 rgba(32, 41, 35, 0.04);
+  backdrop-filter: none;
+}
+
+.public-site .glass-card {
+  background: #FFFFFF;
+  border: 1px solid #E1E4DC;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px 0 rgba(32, 41, 35, 0.04);
+  backdrop-filter: none;
+}
+
+.public-site .glass-card:hover {
+  transform: translateY(-2px);
+  border-color: #8CB8A5;
+  background: #FFFFFF;
+  box-shadow: 0 6px 16px -2px rgba(32, 41, 35, 0.07);
+}
+
+.public-site .grid-bg {
+  background-image: radial-gradient(#E1E4DC 1px, transparent 1px);
+  background-size: 20px 20px;
+  mask-image: none;
+}
+
+.public-site .text-gradient {
+  color: #214E3D;
+  background: none;
+  -webkit-text-fill-color: initial;
+}
+
+.public-site .btn-primary {
+  background: #214E3D;
+  border: 1px solid #1A3E30;
+  color: #FFFFFF;
+  border-radius: 6px;
+  font-weight: 600;
+  box-shadow: 0 1px 2px 0 rgba(32, 41, 35, 0.08);
+}
+
+.public-site .btn-primary:hover {
+  background: #1A3E30;
+  border-color: #143327;
+  color: #FFFFFF;
+  box-shadow: 0 4px 12px rgba(33, 78, 61, 0.2);
+  transform: translateY(-1px);
+}
+
+.public-site .btn-secondary {
+  background: #FFFFFF;
+  border: 1px solid #E1E4DC;
+  color: #202923;
+  border-radius: 6px;
+  font-weight: 600;
+  box-shadow: 0 1px 2px 0 rgba(32, 41, 35, 0.03);
+}
+
+.public-site .btn-secondary:hover {
+  background: #F7F6F0;
+  border-color: #CAD9CC;
+  color: #214E3D;
+  box-shadow: 0 2px 6px 0 rgba(32, 41, 35, 0.05);
+}
+
+.public-site .eyebrow {
+  color: #214E3D;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-shadow: none;
+}
+
+.public-site .input {
+  background: #FFFFFF;
+  border: 1px solid #E1E4DC;
+  border-radius: 6px;
+  color: #202923;
+}
+
+.public-site .input:focus {
+  border-color: #214E3D;
+  box-shadow: 0 0 0 2px rgba(33, 78, 61, 0.15);
+}
+
+.public-site .matrix-stat-card {
+  background: #FFFFFF;
+  border: 1px solid #E1E4DC;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px 0 rgba(32, 41, 35, 0.04);
+}
+
+.public-site .matrix-stat-card::before,
+.public-site .matrix-stat-card::after {
+  display: none;
+}
+
+.public-site .matrix-stat-card:hover {
+  transform: translateY(-2px);
+  border-color: #8CB8A5;
+  box-shadow: 0 6px 16px -2px rgba(32, 41, 35, 0.07);
+}
+
+.public-site .matrix-stat-icon {
+  background: #EDF3EE;
+  border: 1px solid #DCE8DE;
+  color: #214E3D;
+  border-radius: 6px;
+  box-shadow: none;
+}
+
+.public-site .matrix-stat-value {
+  color: #202923;
+  text-shadow: none;
+}
+
+.public-site .matrix-stat-label {
+  color: #48544B;
+}
+
+.public-site .corner,
+.public-site .scan-line,
+.public-site .stat-node {
+  display: none;
+}
+
+.public-site .spinner-ring {
+  border-top-color: #214E3D !important;
+}
+
+.public-site .spinner-container {
+  color: #48544B;
+}
+
+/* Public-site motion polish: restrained, accessible, and isolated from admin. */
+.public-site a,
+.public-site button,
+.public-site input,
+.public-site textarea,
+.public-site select,
+.public-site .glass-card,
+.public-site .glass-panel {
+  transition-property: color, background-color, border-color, box-shadow, transform, opacity;
+  transition-duration: 220ms;
+  transition-timing-function: cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.public-site a:focus-visible,
+.public-site button:focus-visible,
+.public-site input:focus-visible,
+.public-site textarea:focus-visible,
+.public-site select:focus-visible {
+  outline: 2px solid #214E3D;
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .public-site *,
+  .public-site *::before,
+  .public-site *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

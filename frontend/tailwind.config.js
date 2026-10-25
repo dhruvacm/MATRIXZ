@@ -4,6 +4,7 @@ export default {
   theme: {
     extend: {
       colors: {
+        /* ---- EXISTING dark tokens (admin panel uses these - DO NOT REMOVE) ---- */
         void: {
           DEFAULT: "#06060c",
           soft: "#0a0a14",
@@ -17,6 +18,39 @@ export default {
           DEFAULT: "#3b82f6",
           bright: "#60a5fa",
         },
+
+        /* ---- NEW EDITORIAL TECH CLUB DESIGN TOKENS (for public site) ---- */
+        ivory: {
+          DEFAULT: "#F7F6F0",
+          light: "#FAF9F5",
+          dark: "#EFECE2",
+        },
+        forest: {
+          DEFAULT: "#214E3D",
+          hover: "#1A3E30",
+          dark: "#143327",
+          light: "#2B634E",
+        },
+        charcoal: {
+          DEFAULT: "#202923",
+          muted: "#48544B",
+          light: "#6E7A71",
+          faint: "#95A198",
+        },
+        sage: {
+          DEFAULT: "#DCE8DE",
+          light: "#EDF3EE",
+          dark: "#CAD9CC",
+        },
+        teal: {
+          DEFAULT: "#8CB8A5",
+          light: "#A7CBB9",
+          dark: "#6FA08A",
+        },
+        neutralBorder: {
+          DEFAULT: "#E1E4DC",
+          subtle: "#EBECE6",
+        },
       },
       fontFamily: {
         display: ["'Space Grotesk'", "sans-serif"],
@@ -24,9 +58,14 @@ export default {
         mono: ["'JetBrains Mono'", "monospace"],
       },
       boxShadow: {
+        /* existing (admin) */
         glow: "0 0 40px rgba(139, 92, 246, 0.25)",
         "glow-sm": "0 0 20px rgba(139, 92, 246, 0.2)",
         "glow-blue": "0 0 40px rgba(59, 130, 246, 0.25)",
+        /* subtle editorial shadows */
+        subtle: "0 1px 2px 0 rgba(32, 41, 35, 0.04)",
+        card: "0 1px 3px 0 rgba(32, 41, 35, 0.06), 0 1px 2px -1px rgba(32, 41, 35, 0.04)",
+        "card-hover": "0 4px 16px -2px rgba(32, 41, 35, 0.08), 0 2px 6px -1px rgba(32, 41, 35, 0.04)",
       },
       backgroundImage: {
         "grid-pattern":

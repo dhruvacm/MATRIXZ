@@ -3,7 +3,6 @@ import { motion } from "framer-motion";
 import { useDocumentTitle } from "@/hooks/useDocumentTitle";
 import { useFetch } from "@/hooks/useFetch";
 import { eventService } from "@/services/eventService";
-import { SectionHeading } from "@/components/SectionHeading";
 import { EventCard } from "@/components/EventCard";
 import { LoadingSpinner } from "@/components/LoadingSpinner";
 import { EmptyState } from "@/components/EmptyState";
@@ -15,32 +14,37 @@ export default function Events() {
   const { data, loading, error, refetch } = useFetch(() => eventService.list(tab), [tab]);
 
   return (
-    <div className="px-5 pb-24 pt-14 lg:px-8">
+    <div className="bg-[#F7F6F0] px-5 pb-24 pt-14 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <div className="text-center">
-  <span className="eyebrow">What's Happening</span>
+          <span className="inline-block rounded border border-[#E1E4DC] bg-[#DCE8DE]/60 px-2.5 py-0.5 font-mono text-[11px] font-semibold uppercase tracking-wider text-[#214E3D]">
+            Society Calendar
+          </span>
+          <h1 className="mt-2.5 font-display text-4xl font-extrabold tracking-tight text-[#202923] sm:text-5xl">
+            Events & Workshops
+          </h1>
+          <p className="mx-auto mt-4 max-w-2xl text-base text-[#48544B]">
+            From systems bootcamps to competitive 24-hour hackathons, explore upcoming technical sessions and past records.
+          </p>
+        </div>
 
-  <h1
-    className="mt-2 text-5xl font-semibold tracking-wide text-white sm:text-6xl"
-    style={{ fontFamily: "var(--font-premium)" }}
-  >
-    Events
-  </h1>
-</div>
-
-        <div className="relative mx-auto mt-10 flex w-fit gap-1 rounded-full border border-white/10 bg-white/[0.03] p-1">
+        <div className="relative mx-auto mt-10 flex w-fit gap-1 rounded-md border border-[#E1E4DC] bg-white p-1 shadow-subtle">
           {(["upcoming", "past"] as const).map((t) => (
             <button
               key={t}
               onClick={() => setTab(t)}
-              className={`relative rounded-full px-6 py-2.5 text-sm font-medium capitalize transition-colors ${
-                tab === t ? "text-white" : "text-slate-400 hover:text-slate-200"
+              className={`relative rounded px-5 py-1.5 font-mono text-xs font-semibold capitalize transition-colors ${
+                tab === t ? "text-white" : "text-[#48544B] hover:text-[#214E3D]"
               }`}
             >
               {tab === t && (
-                <motion.span layoutId="events-tab" className="absolute inset-0 rounded-full bg-violet-glow shadow-glow-sm" transition={{ type: "spring", stiffness: 350, damping: 28 }} />
+                <motion.span
+                  layoutId="events-tab"
+                  className="absolute inset-0 rounded bg-[#214E3D] shadow-sm"
+                  transition={{ type: "spring", stiffness: 350, damping: 28 }}
+                />
               )}
-              <span className="relative">{t} Events</span>
+              <span className="relative z-10">{t} Events</span>
             </button>
           ))}
         </div>
@@ -52,8 +56,12 @@ export default function Events() {
             <ErrorState message={error} onRetry={refetch} />
           ) : !data || data.length === 0 ? (
             <EmptyState
-              title={tab === "upcoming" ? "No upcoming events yet." : "No past events to show."}
-              description={tab === "upcoming" ? "Stay tuned — something exciting is coming." : "Our event history will appear here as we host more."}
+              title={tab === "upcoming" ? "No upcoming events scheduled." : "No past events to show."}
+              description={
+                tab === "upcoming"
+                  ? "Stay tuned — seminar schedules and competition timelines will be published shortly."
+                  : "Archived event summaries will be documented here as completed."
+              }
             />
           ) : (
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
