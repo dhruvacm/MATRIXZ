@@ -1,3 +1,4 @@
+
 import { motion } from "framer-motion";
 import { Trophy, ExternalLink } from "lucide-react";
 import { Achievement } from "@/types";
@@ -32,15 +33,17 @@ export function AchievementCard({
             <Trophy className="h-9 w-9 text-[#8CB8A5]" />
           </div>
         )}
-
-        {/* CATEGORY BADGE */}
-        <span className="absolute left-3 top-3 rounded border border-[#CAD9CC] bg-[#DCE8DE]/95 px-2 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-wider text-[#214E3D] shadow-subtle backdrop-blur-sm">
-          {achievement.category}
-        </span>
       </div>
 
       {/* ACHIEVEMENT INFORMATION */}
       <div className="flex flex-1 flex-col p-5">
+        {/* CATEGORY BADGE */}
+        <div className="mb-3">
+          <span className="inline-block rounded border border-[#CAD9CC] bg-[#DCE8DE] px-2 py-1 font-mono text-[10px] font-semibold uppercase tracking-wider text-[#214E3D]">
+            {achievement.category}
+          </span>
+        </div>
+
         <h3 className="line-clamp-1 font-display text-base font-bold text-[#202923] transition-colors group-hover:text-[#214E3D]">
           {achievement.title}
         </h3>
