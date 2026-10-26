@@ -1,3 +1,4 @@
+
 import { v2 as cloudinary } from "cloudinary";
 import multer, { StorageEngine, FileFilterCallback } from "multer";
 import { Request } from "express";
@@ -10,10 +11,8 @@ cloudinary.config({
 });
 
 /**
- * Custom multer storage engine that streams the incoming file straight to
- * Cloudinary (no local disk writes) and exposes `file.path` (secure URL) and
- * `file.filename` (Cloudinary public ID) so controllers can use the same
- * shape as multer-storage-cloudinary without the cloudinary-v1 peer conflict.
+ * Custom multer storage engine that streams the incoming file directly
+ * to Cloudinary without writing it to local disk.
  */
 class CloudinaryEngine implements StorageEngine {
   _handleFile(
@@ -32,6 +31,7 @@ class CloudinaryEngine implements StorageEngine {
           cb(error || new Error("Cloudinary upload failed"));
           return;
         }
+
         cb(null, {
           path: result.secure_url,
           filename: result.public_id,
@@ -39,23 +39,53 @@ class CloudinaryEngine implements StorageEngine {
         } as Partial<Express.Multer.File>);
       }
     );
+
     file.stream.pipe(uploadStream);
   }
 
-  _removeFile(_req: Request, _file: Express.Multer.File, cb: (error: Error | null) => void) {
+  _removeFile(
+    _req: Request,
+    _file: Express.Multer.File,
+    cb: (error: Error | null) => void
+  ) {
     cb(null);
   }
 }
 
+const allowedMimeTypes = new Set([
+  "image/jpeg",
+  "image/png",
+  "image/webp",
+  "image/jpg",
+]);
+
 export const upload = multer({
   storage: new CloudinaryEngine(),
-  limits: { fileSize: 5 * 1024 * 1024 }, // 5MB
-  fileFilter: (_req: Request, file: Express.Multer.File, cb: FileFilterCallback) => {
-    const allowed = ["image/jpeg", "image/png", "image/webp", "image/jpg"];
-    if (allowed.includes(file.mimetype)) {
+
+  limits: {
+    fileSize: 5 * 1024 * 1024, // 5 MB
+  },
+
+  fileFilter: (
+    _req: Request,
+    file: Express.Multer.File,
+    cb: FileFilterCallback
+  ) => {
+    const mimeType = file.mimetype.toLowerCase();
+
+    console.log("[upload] Received file:", {
+      originalname: file.originalname,
+      mimetype: mimeType,
+    });
+
+    if (allowedMimeTypes.has(mimeType)) {
       cb(null, true);
     } else {
-      cb(new Error("Unsupported file type. Only JPG, PNG and WEBP are allowed."));
+      cb(
+        new Error(
+          `Unsupported file type: ${mimeType}. Only JPG, PNG and WEBP are allowed.`
+        )
+      );
     }
   },
 });
