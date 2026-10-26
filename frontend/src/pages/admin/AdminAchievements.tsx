@@ -154,9 +154,18 @@ export default function AdminAchievements() {
             </div>
             <div>
               <label className="mb-1.5 block text-xs font-medium text-slate-400">Category</label>
-              <select {...register("category")} className="input">
-                {categories.map((c) => <option key={c} value={c}>{c}</option>)}
+
+              <select
+                {...register("category")}
+                className="input [&>option]:bg-[#191a2e] [&>option]:text-white"
+              >
+                {categories.map((c) => (
+                  <option key={c} value={c}>
+                    {c}
+                  </option>
+                ))}
               </select>
+
             </div>
             <div>
               <label className="mb-1.5 block text-xs font-medium text-slate-400">Date</label>
