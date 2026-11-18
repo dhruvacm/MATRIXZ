@@ -283,7 +283,7 @@ export default function Home() {
                 Recognitions & Milestones
               </span>
               <h2 className="mt-2.5 font-display text-3xl font-bold tracking-tight text-[#202923] sm:text-4xl">
-                Our Achievements
+                Achievements
               </h2>
             </div>
             <Link

@@ -33,7 +33,7 @@ export default function Achievements() {
             Society Milestones
           </span>
           <h1 className="mt-2.5 font-display text-4xl font-extrabold tracking-tight text-[#202923] sm:text-5xl">
-            Our Achievements
+            Achievements
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-base text-[#48544B]">
             Documenting student breakthroughs, competitive hackathon placements, and honors in collegiate engineering.
