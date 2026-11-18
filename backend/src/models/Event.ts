@@ -1,6 +1,14 @@
+
 import { Schema, model, Document } from "mongoose";
 
-export type EventType = "Hackathon" | "Workshop" | "Tech Talk" | "Competition" | "Seminar" | "Other";
+export type EventType =
+  | "Hackathon"
+  | "Workshop"
+  | "Tech Talk"
+  | "Competition"
+  | "Seminar"
+  | "Other";
+
 export type EventStatus =
   | "Draft"
   | "Upcoming"
@@ -15,6 +23,7 @@ export interface IEvent extends Document {
   eventType: EventType;
   description: string;
   banner?: { url: string; publicId: string };
+  report?: { url: string; publicId: string };
   date: Date;
   startTime?: string;
   endTime?: string;
@@ -35,14 +44,31 @@ export interface IEvent extends Document {
 const eventSchema = new Schema<IEvent>(
   {
     title: { type: String, required: true, trim: true },
-    slug: { type: String, required: true, unique: true, lowercase: true, index: true },
+    slug: {
+      type: String,
+      required: true,
+      unique: true,
+      lowercase: true,
+      index: true,
+    },
     eventType: {
       type: String,
-      enum: ["Hackathon", "Workshop", "Tech Talk", "Competition", "Seminar", "Other"],
+      enum: [
+        "Hackathon",
+        "Workshop",
+        "Tech Talk",
+        "Competition",
+        "Seminar",
+        "Other",
+      ],
       default: "Other",
     },
     description: { type: String, required: true },
     banner: {
+      url: { type: String },
+      publicId: { type: String },
+    },
+    report: {
       url: { type: String },
       publicId: { type: String },
     },
@@ -53,13 +79,18 @@ const eventSchema = new Schema<IEvent>(
     eligibility: { type: String, trim: true },
     registrationDeadline: { type: Date },
     maxParticipants: { type: Number },
-    // Registration is handled entirely by an external Google Form.
-    // registrationEnabled controls whether the "Register Now" button is shown at all.
     registrationEnabled: { type: Boolean, default: false },
     registrationUrl: { type: String, trim: true, default: null },
     status: {
       type: String,
-      enum: ["Draft", "Upcoming", "Registration Open", "Registration Closed", "Completed", "Cancelled"],
+      enum: [
+        "Draft",
+        "Upcoming",
+        "Registration Open",
+        "Registration Closed",
+        "Completed",
+        "Cancelled",
+      ],
       default: "Draft",
       index: true,
     },

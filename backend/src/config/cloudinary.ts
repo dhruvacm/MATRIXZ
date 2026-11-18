@@ -2,7 +2,7 @@
 import { v2 as cloudinary } from "cloudinary";
 import multer, { StorageEngine, FileFilterCallback } from "multer";
 import { Request } from "express";
-import { extname } from "node:path";
+import { extname, basename } from "node:path";
 import convert from "heic-convert";
 import { env } from "./env";
 
@@ -12,7 +12,7 @@ cloudinary.config({
   api_secret: env.cloudinary.apiSecret,
 });
 
-const allowedMimeTypes = new Set([
+const allowedImageMimeTypes = new Set([
   "image/jpeg",
   "image/jpg",
   "image/png",
@@ -23,7 +23,7 @@ const allowedMimeTypes = new Set([
   "image/heif-sequence",
 ]);
 
-const allowedExtensions = new Set([
+const allowedImageExtensions = new Set([
   ".jpg",
   ".jpeg",
   ".png",
@@ -39,6 +39,8 @@ const heicTypes = new Set([
   "image/heif-sequence",
 ]);
 
+const MAX_FILE_SIZE = 5 * 1024 * 1024;
+
 class CloudinaryEngine implements StorageEngine {
   _handleFile(
     _req: Request,
@@ -50,6 +52,53 @@ class CloudinaryEngine implements StorageEngine {
   ) {
     const mimeType = file.mimetype.toLowerCase();
     const extension = extname(file.originalname).toLowerCase();
+    const isReport = file.fieldname === "report";
+
+    if (isReport) {
+      const safeName = basename(file.originalname, extension)
+        .replace(/[^a-zA-Z0-9_-]/g, "-")
+        .slice(0, 80);
+
+      const chunks: Buffer[] = [];
+
+      file.stream.on("data", (chunk: Buffer | string) => {
+        chunks.push(
+          Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk)
+        );
+      });
+
+      file.stream.on("error", (error) => cb(error));
+
+      file.stream.on("end", () => {
+        const uploadBuffer = Buffer.concat(chunks);
+
+        const uploadStream = cloudinary.uploader.upload_stream(
+          {
+            folder: "matrixz/event-reports",
+            resource_type: "raw",
+            public_id: `${safeName}-${Date.now()}.pdf`,
+          },
+          (error, result) => {
+            if (error || !result) {
+              cb(error || new Error("PDF upload failed"));
+              return;
+            }
+
+            cb(null, {
+              path: result.secure_url,
+              filename: result.public_id,
+              size: result.bytes,
+              mimetype: "application/pdf",
+            });
+          }
+        );
+
+        uploadStream.end(uploadBuffer);
+      });
+
+      return;
+    }
+
     const isHeic =
       heicTypes.has(mimeType) ||
       extension === ".heic" ||
@@ -58,7 +107,9 @@ class CloudinaryEngine implements StorageEngine {
     const chunks: Buffer[] = [];
 
     file.stream.on("data", (chunk: Buffer | string) => {
-      chunks.push(Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk));
+      chunks.push(
+        Buffer.isBuffer(chunk) ? chunk : Buffer.from(chunk)
+      );
     });
 
     file.stream.on("error", (error) => cb(error));
@@ -66,8 +117,6 @@ class CloudinaryEngine implements StorageEngine {
     file.stream.on("end", async () => {
       try {
         const input = Buffer.concat(chunks);
-
-
         let uploadBuffer: Buffer;
 
         if (isHeic) {
@@ -77,26 +126,24 @@ class CloudinaryEngine implements StorageEngine {
             quality: 0.9,
           });
 
-          if (Buffer.isBuffer(converted)) {
-            uploadBuffer = converted;
-          } else {
-            uploadBuffer = Buffer.from(new Uint8Array(converted));
-          }
+          uploadBuffer = Buffer.isBuffer(converted)
+            ? converted
+            : Buffer.from(new Uint8Array(converted));
         } else {
           uploadBuffer = input;
         }
 
-        const uploadOptions = {
-          folder: "matrixz",
-          resource_type: "image" as const,
-          transformation: [{ quality: "auto", fetch_format: "auto" }],
-        };
-
         const uploadStream = cloudinary.uploader.upload_stream(
-          uploadOptions,
+          {
+            folder: "matrixz",
+            resource_type: "image",
+            transformation: [
+              { quality: "auto", fetch_format: "auto" },
+            ],
+          },
           (error, result) => {
             if (error || !result) {
-              cb(error || new Error("Cloudinary upload failed"));
+              cb(error || new Error("Image upload failed"));
               return;
             }
 
@@ -109,7 +156,7 @@ class CloudinaryEngine implements StorageEngine {
                 : result.format === "jpg"
                   ? "image/jpeg"
                   : `image/${result.format}`,
-            } as Partial<Express.Multer.File>);
+            });
           }
         );
 
@@ -136,7 +183,7 @@ class CloudinaryEngine implements StorageEngine {
 export const upload = multer({
   storage: new CloudinaryEngine(),
   limits: {
-    fileSize: 5 * 1024 * 1024,
+    fileSize: MAX_FILE_SIZE,
   },
   fileFilter: (
     _req: Request,
@@ -146,24 +193,32 @@ export const upload = multer({
     const mimeType = file.mimetype.toLowerCase();
     const extension = extname(file.originalname).toLowerCase();
 
-    console.log("[upload] Received file:", {
-      originalname: file.originalname,
-      mimetype: mimeType,
-    });
+    if (file.fieldname === "report") {
+      const isPdf =
+        mimeType === "application/pdf" && extension === ".pdf";
+
+      if (!isPdf) {
+        cb(new Error("Event report must be a PDF file."));
+        return;
+      }
+
+      cb(null, true);
+      return;
+    }
 
     if (
-      allowedMimeTypes.has(mimeType) ||
-      allowedExtensions.has(extension)
+      allowedImageMimeTypes.has(mimeType) ||
+      allowedImageExtensions.has(extension)
     ) {
       cb(null, true);
-    } else {
-      cb(
-        new Error(
-          `Unsupported file type: ${mimeType}. ` +
-          "Allowed formats: JPG, PNG, WEBP, HEIC and HEIF."
-        )
-      );
+      return;
     }
+
+    cb(
+      new Error(
+        "Unsupported image format. Allowed formats: JPG, PNG, WEBP, HEIC and HEIF."
+      )
+    );
   },
 });
 
