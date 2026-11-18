@@ -20,6 +20,7 @@ export interface MatrixzEvent {
   eventType: EventType;
   description: string;
   banner?: ImageAsset;
+  report?: ImageAsset;
   date: string;
   startTime?: string;
   endTime?: string;

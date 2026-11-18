@@ -1,7 +1,7 @@
 
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { MapPin, ExternalLink } from "lucide-react";
+import { MapPin, ExternalLink, FileText } from "lucide-react";
 import { MatrixzEvent } from "@/types";
 import { formatDay, formatMonth, isPastDeadline } from "@/utils/format";
 
@@ -26,7 +26,6 @@ export function EventCard({
       transition={{ duration: 0.4, delay: index * 0.04 }}
       className="group flex flex-col overflow-hidden rounded-lg border border-[#E1E4DC] bg-white shadow-subtle transition-all duration-200 hover:-translate-y-0.5 hover:border-[#8CB8A5] hover:shadow-card"
     >
-      {/* BANNER IMAGE */}
       <div className="relative">
         <Link
           to={`/events/${event.slug}`}
@@ -48,7 +47,6 @@ export function EventCard({
           )}
         </Link>
 
-        {/* DATE BADGE */}
         <div className="absolute left-3 top-3 rounded border border-[#E1E4DC] bg-[#F7F6F0]/95 px-2.5 py-1 text-center leading-none shadow-subtle backdrop-blur-sm">
           <div className="font-mono text-[10px] font-semibold uppercase tracking-wider text-[#214E3D]">
             {formatMonth(event.date)}
@@ -58,13 +56,11 @@ export function EventCard({
           </div>
         </div>
 
-        {/* EVENT TYPE BADGE */}
         <span className="absolute right-3 top-3 rounded border border-[#CAD9CC] bg-[#DCE8DE]/95 px-2 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-wider text-[#214E3D] shadow-subtle backdrop-blur-sm">
           {event.eventType}
         </span>
       </div>
 
-      {/* EVENT INFORMATION */}
       <div className="flex flex-1 flex-col p-5">
         <Link to={`/events/${event.slug}`}>
           <h3 className="line-clamp-2 font-display text-base font-bold text-[#202923] transition-colors group-hover:text-[#214E3D]">
@@ -72,19 +68,16 @@ export function EventCard({
           </h3>
         </Link>
 
-        {/* VENUE */}
         <div className="mt-2 flex items-center gap-1.5 text-xs text-[#6E7A71]">
           <MapPin className="h-3.5 w-3.5 shrink-0 text-[#8CB8A5]" />
           <span className="line-clamp-1">{event.venue}</span>
         </div>
 
-        {/* DESCRIPTION */}
         <p className="mt-2.5 line-clamp-2 flex-1 text-sm leading-relaxed text-[#48544B]">
           {event.description}
         </p>
 
-        {/* ACTION BUTTON */}
-        <div className="mt-5">
+        <div className="mt-5 flex flex-col gap-2">
           {canRegister ? (
             <a
               href={event.registrationUrl!}
@@ -102,6 +95,19 @@ export function EventCard({
             >
               View Details
             </Link>
+          )}
+
+          {event.report?.url && (
+            <a
+              href={event.report.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex w-full items-center justify-center gap-1.5 rounded border border-[#CAD9CC] bg-[#F7F6F0] py-2 text-center text-xs font-semibold text-[#214E3D] transition-colors hover:bg-[#DCE8DE]"
+            >
+              <FileText className="h-3.5 w-3.5" />
+              View Event Report
+              <ExternalLink className="h-3 w-3" />
+            </a>
           )}
         </div>
       </div>

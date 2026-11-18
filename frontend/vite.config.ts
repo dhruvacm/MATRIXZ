@@ -15,9 +15,7 @@ export default defineConfig({
   server: {
     host: "0.0.0.0",
     port: 5173,
-    allowedHosts: [
-      "postdiastolic-cretaceously-norman.ngrok-free.dev",
-    ],
+   allowedHosts: true,
 
     proxy: {
       "/api": {
