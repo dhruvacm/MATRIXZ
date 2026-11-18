@@ -76,6 +76,7 @@ class CloudinaryEngine implements StorageEngine {
           {
             folder: "matrixz/event-reports",
             resource_type: "raw",
+            access_mode: "public",
             public_id: `${safeName}-${Date.now()}.pdf`,
           },
           (error, result) => {
